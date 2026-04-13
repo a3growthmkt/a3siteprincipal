@@ -3,4 +3,3 @@ node_modules/
 Thumbs.db
 *.tmp
 .env
-package-lock.json
