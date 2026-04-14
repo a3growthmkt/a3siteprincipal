@@ -272,5 +272,70 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // === HERO FORM HANDLING ===
+  const heroForm = document.getElementById('hero-lead-form');
+  const phoneInput = document.getElementById('form-telefone');
+
+  if (heroForm && phoneInput) {
+    // Simple phone mask (BR format: (00) 00000-0000)
+    phoneInput.addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      
+      let formatted = '';
+      if (v.length > 0) {
+        formatted = '(' + v.slice(0, 2);
+        if (v.length > 2) {
+          formatted += ') ' + v.slice(2, 7);
+          if (v.length > 7) {
+            formatted += '-' + v.slice(7, 11);
+          }
+        }
+      }
+      e.target.value = formatted;
+    });
+
+    heroForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const btn = heroForm.querySelector('button[type="submit"]');
+      const originalBtnText = btn.innerText;
+
+      // Visual feedback
+      btn.disabled = true;
+      btn.innerText = 'ENVIANDO...';
+
+      const formData = new FormData(heroForm);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Timestamp for the sheet
+      data.timestamp = new Date().toLocaleString('pt-BR');
+
+      // Web App URL final gerada e validada pelo agente (a3growthmkt)
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKVIn4xw78NdiMfgKFg6kIuIjoKh6tcEfMR0Pn7M0kOQWB84D3EwsyJe14FyHMLgK/exec'; 
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        heroForm.innerHTML = `
+          <div class="form-success-message" style="text-align: center; padding: 40px 0; animation: fadeIn 0.5s ease forwards;">
+            <div style="font-size: 4rem; color: var(--primary); margin-bottom: 24px;">✓</div>
+            <h3 style="color: var(--white); margin-bottom: 12px; font-size: 1.5rem;">Solicitação Enviada!</h3>
+            <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6;">Obrigado, ${data.nome.split(' ')[0]}! Um de nossos especialistas entrará em contato com você em breve.</p>
+          </div>
+        `;
+      })
+      .catch(error => {
+        console.error('Error!', error.message);
+        btn.disabled = false;
+        btn.innerText = originalBtnText;
+        alert('Ocorreu um erro ao enviar. Por favor, tente novamente ou fale conosco pelo WhatsApp.');
+      });
+    });
+  }
+
 });
 
