@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
   hamburgerBtn.addEventListener('click', function () {
     hamburgerBtn.classList.toggle('active');
     mobileNav.classList.toggle('open');
+    header.classList.toggle('open-menu');
   });
 
   // Close nav when clicking a link
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('click', function () {
       hamburgerBtn.classList.remove('active');
       mobileNav.classList.remove('open');
+      header.classList.remove('open-menu');
     });
   });
 
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!header.contains(e.target)) {
       hamburgerBtn.classList.remove('active');
       mobileNav.classList.remove('open');
+      header.classList.remove('open-menu');
     }
   });
 
@@ -246,10 +249,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   pillarLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       const card = this.closest('.pillar-card');
       const pillarId = card.getAttribute('data-pillar');
-      
+
       // Skip A3 Voice (Pillar 6)
       if (pillarId === "6" || card.classList.contains('pillar-card--soon')) {
         return; // Normal anchor behavior or nothing
@@ -282,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
     phoneInput.addEventListener('input', function (e) {
       let v = e.target.value.replace(/\D/g, '');
       if (v.length > 11) v = v.slice(0, 11);
-      
+
       let formatted = '';
       if (v.length > 0) {
         formatted = '(' + v.slice(0, 2);
@@ -307,12 +310,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const formData = new FormData(heroForm);
       const data = Object.fromEntries(formData.entries());
-      
+
       // Timestamp for the sheet
       data.timestamp = new Date().toLocaleString('pt-BR');
 
       // Web App URL final gerada e validada pelo agente (a3growthmkt)
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKVIn4xw78NdiMfgKFg6kIuIjoKh6tcEfMR0Pn7M0kOQWB84D3EwsyJe14FyHMLgK/exec'; 
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKVIn4xw78NdiMfgKFg6kIuIjoKh6tcEfMR0Pn7M0kOQWB84D3EwsyJe14FyHMLgK/exec';
 
       fetch(SCRIPT_URL, {
         method: 'POST',
@@ -320,21 +323,21 @@ document.addEventListener('DOMContentLoaded', function () {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       })
-      .then(() => {
-        heroForm.innerHTML = `
+        .then(() => {
+          heroForm.innerHTML = `
           <div class="form-success-message" style="text-align: center; padding: 40px 0; animation: fadeIn 0.5s ease forwards;">
             <div style="font-size: 4rem; color: var(--primary); margin-bottom: 24px;">✓</div>
             <h3 style="color: var(--white); margin-bottom: 12px; font-size: 1.5rem;">Solicitação Enviada!</h3>
             <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.6;">Obrigado, ${data.nome.split(' ')[0]}! Um de nossos especialistas entrará em contato com você em breve.</p>
           </div>
         `;
-      })
-      .catch(error => {
-        console.error('Error!', error.message);
-        btn.disabled = false;
-        btn.innerText = originalBtnText;
-        alert('Ocorreu um erro ao enviar. Por favor, tente novamente ou fale conosco pelo WhatsApp.');
-      });
+        })
+        .catch(error => {
+          console.error('Error!', error.message);
+          btn.disabled = false;
+          btn.innerText = originalBtnText;
+          alert('Ocorreu um erro ao enviar. Por favor, tente novamente ou fale conosco pelo WhatsApp.');
+        });
     });
   }
 
