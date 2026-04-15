@@ -508,6 +508,19 @@ ul {
     inset 0 0 40px rgba(255, 107, 0, 0.05);
   position: relative;
   overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-form-container:hover {
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(30px) saturate(150%);
+  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  border-color: rgba(255, 107, 0, 0.35);
+  box-shadow:
+    0 50px 120px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(255, 107, 0, 0.15),
+    inset 0 0 60px rgba(255, 107, 0, 0.1);
+  transform: translateY(-4px);
 }
 
 .hero-form-container::before {
@@ -519,6 +532,12 @@ ul {
   height: 200%;
   background: radial-gradient(circle at center, rgba(255, 107, 0, 0.05) 0%, transparent 70%);
   pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.hero-form-container:hover::before {
+  background: radial-gradient(circle at center, rgba(255, 107, 0, 0.12) 0%, transparent 70%);
+  opacity: 1;
 }
 
 .form-header {
