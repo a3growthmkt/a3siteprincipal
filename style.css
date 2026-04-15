@@ -320,24 +320,29 @@ ul {
 }
 
 .mobile-nav ul {
-  padding: 16px 24px 24px;
+  padding: 20px 24px;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-align: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-nav .nav-link {
-  display: block;
-  padding: 14px 20px;
+  display: inline-block;
+  padding: 10px 18px;
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--white);
   transition: all 0.3s ease;
-  border-radius: 12px;
+  border-radius: 320px;
   transform: translateY(-10px);
   opacity: 0;
+  white-space: nowrap;
 }
 
 .mobile-nav.open .nav-link {
@@ -368,18 +373,13 @@ ul {
 .mobile-nav .nav-link:hover,
 .mobile-nav .nav-link.active {
   color: var(--white);
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .mobile-nav .nav-cta {
-  margin-top: 8px;
   background: var(--primary);
   color: var(--white);
-  text-align: center;
-  font-weight: 700;
-  border-radius: 320px;
-  letter-spacing: 0.05em;
-  font-size: 0.85rem;
+  font-weight: 400;
 }
 
 .mobile-nav .nav-cta:hover {
