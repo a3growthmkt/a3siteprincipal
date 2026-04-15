@@ -5,6 +5,24 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  // === HERO VIDEO BACKGROUND ===
+  const heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    // Force play on mobile and desktop
+    const playVideo = () => {
+      heroVideo.play().catch(err => {
+        console.log('Video autoplay blocked:', err);
+      });
+    };
+
+    // Try to play immediately
+    playVideo();
+
+    // Try again on user interaction if blocked
+    document.addEventListener('click', playVideo, { once: true });
+    document.addEventListener('touchstart', playVideo, { once: true });
+  }
+
   // === STICKY HEADER ===
   const header = document.getElementById('site-header');
   function handleScroll() {

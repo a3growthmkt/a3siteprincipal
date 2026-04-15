@@ -46,8 +46,21 @@
     <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
       <div class="hero-video-bg">
-        <video autoplay muted loop playsinline class="hero-video">
-          <source src="imagens/header.mov" type="video/mp4">
+        <!-- 
+          ⚠️ ATENÇÃO: O arquivo header.mov precisa ser convertido para MP4!
+          
+          Para converter, execute no terminal:
+          cd imagens
+          ffmpeg -i header.mov -c:v libx264 -preset medium -crf 23 -c:a aac -b:a 128k -movflags +faststart header.mp4
+          
+          Ou use um conversor online: https://cloudconvert.com/mov-to-mp4
+          
+          Enquanto isso, a imagem 01.jpg será exibida como fallback.
+        -->
+        <video autoplay muted loop playsinline class="hero-video" id="hero-video" poster="imagens/01.jpg">
+          <source src="imagens/header.mp4" type="video/mp4">
+          <source src="imagens/header.webm" type="video/webm">
+          <!-- Fallback: se vídeo não carregar, mostra a imagem de fundo -->
         </video>
         <div class="hero-video-overlay"></div>
       </div>
